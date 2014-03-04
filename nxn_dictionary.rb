@@ -10,5 +10,29 @@ class Nxn_Dictionary
 		end
 		nxn_grid
 	end
+
+	def horizontal_l2r(grid)
+		words = 0
+		dictionary = load_dictionary
+		dictionary.each do |word|
+			grid.each do |line|
+				if line.include? word
+					words = words + 1
+				end
+			end
+		end
+		words
+	end
+
+	def load_dictionary()
+		dictionary = []
+		dictionary_path = File.dirname($0) + '../Dictionary/dict.txt'
+		f = File.open(dictionary_path, "r")
+		f.each_line do |line|
+ 			dictionary << line.split(' ').first
+		end
+		f.close
+		dictionary
+	end
 	
 end
