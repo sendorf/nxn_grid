@@ -26,6 +26,21 @@ class Nxn_Dictionary
 		words
 	end
 
+	def horizontal_r2l(grid)
+		words = 0
+		dict = []
+		dict = load_dictionary
+		dict.each do |word|
+			grid.each do |line|
+				line = line.gsub(/\s+/, "").reverse
+				if (line.include? word)
+					words = words + 1
+				end
+			end
+		end
+		words
+	end
+
 	def load_dictionary()
 		dict = []
 		dictionary_path = File.expand_path("../Dictionary/dict.txt", __FILE__)
