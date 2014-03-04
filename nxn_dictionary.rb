@@ -59,6 +59,23 @@ class Nxn_Dictionary
 		diagonal_grid << diagonal_line
 	end
 
+	def convert2vertical(grid)
+		vertical_grid = []
+		trimmed_grid = []
+		grid.each do |line|
+			trimmed_grid << line.gsub(/\s+/, "")
+		end
+		puts trimmed_grid
+		trimmed_grid.length.times do |i|
+			vertical_line = ""
+			trimmed_grid.length.times do |j|
+				vertical_line = vertical_line + trimmed_grid[j][i] + " "
+			end
+			vertical_grid << vertical_line.rstrip!
+		end
+		vertical_grid
+	end
+
 	def horizontal_l2r(grid)
 		words = 0
 		dict = []
