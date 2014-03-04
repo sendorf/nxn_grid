@@ -26,7 +26,7 @@ class Nxn_Dictionary
 
 	def load_dictionary()
 		dictionary = []
-		dictionary_path = File.dirname($0) + '../Dictionary/dict.txt'
+		dictionary_path = File.expand_path("../Dictionary/dict.txt", __FILE__)
 		f = File.open(dictionary_path, "r")
 		f.each_line do |line|
  			dictionary << line.split(' ').first
