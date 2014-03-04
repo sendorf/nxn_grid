@@ -5,7 +5,7 @@ class Nxn_Dictionary
 		nxn_grid = []
 		dimension.times do
 			string = (0...dimension).map { o[rand(o.length)] }.join(" ") # Generates a random string of length 'dimension'
-			puts string
+			#puts string
 			nxn_grid << string
 		end
 		nxn_grid
@@ -13,10 +13,12 @@ class Nxn_Dictionary
 
 	def horizontal_l2r(grid)
 		words = 0
-		dictionary = load_dictionary
-		dictionary.each do |word|
+		dict = []
+		dict = load_dictionary
+		dict.each do |word|
 			grid.each do |line|
-				if line.include? word
+				line = line.gsub(/\s+/, "")
+				if (line.include? word)
 					words = words + 1
 				end
 			end
@@ -25,14 +27,14 @@ class Nxn_Dictionary
 	end
 
 	def load_dictionary()
-		dictionary = []
+		dict = []
 		dictionary_path = File.expand_path("../Dictionary/dict.txt", __FILE__)
 		f = File.open(dictionary_path, "r")
 		f.each_line do |line|
- 			dictionary << line.split(' ').first
+ 			dict << line.split(' ').first
 		end
 		f.close
-		dictionary
+		dict.compact
 	end
 	
 end
