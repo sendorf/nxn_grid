@@ -11,6 +11,28 @@ class Nxn_Dictionary
 		nxn_grid
 	end
 
+	def count(grid)
+		hl2r_words = 0
+		hr2l_words = 0
+		dict = []
+		dict = load_dictionary
+		dict.each do |word|
+			grid.each do |line|
+				hl2r_line = line.gsub(/\s+/, "")				# Horizontal line form left to right
+				hr2l_line = line.gsub(/\s+/, "").reverse		# The inverse horizontal line, from right to left
+				if (hl2r_line.include? word)
+					hl2r_words = hl2r_words + 1
+				end
+				if (hr2l_line.include? word)
+					hr2l_words = hr2l_words + 1
+				end
+			end
+		end
+		puts grid
+		puts "\nHorizontal words from left to right in your grid: #{hl2r_words}"
+		puts "Horizontal words from right to left in your grid: #{hr2l_words}"
+	end
+
 	def horizontal_l2r(grid)
 		words = 0
 		dict = []
