@@ -14,8 +14,10 @@ class Nxn_Dictionary
 	def count(grid)
 		hl2r_words = 0
 		hr2l_words = 0
-		dict = []
+		dl2r_words = 0
+		dr2l_words = 0
 		dict = load_dictionary
+		diagonal_grid = convert2diagonal(grid)
 		dict.each do |word|
 			grid.each do |line|
 				hl2r_line = line.gsub(/\s+/, "")				# Horizontal line form left to right
@@ -27,10 +29,34 @@ class Nxn_Dictionary
 					hr2l_words = hr2l_words + 1
 				end
 			end
+			diagonal_grid.each do |line|
+				dl2r_line = line.gsub(/\s+/, "")				# Horizontal line form left to right
+				dr2l_line = line.gsub(/\s+/, "").reverse		# The inverse horizontal line, from right to left
+				if (dl2r_line.include? word)
+					dl2r_words = dl2r_words + 1
+				end
+				if (dr2l_line.include? word)
+					dr2l_words = dr2l_words + 1
+				end
+			end
 		end
 		puts grid
 		puts "\nHorizontal words from left to right in your grid: #{hl2r_words}"
 		puts "Horizontal words from right to left in your grid: #{hr2l_words}"
+		puts "Diagonal words from left to right in your grid: #{dl2r_words}"
+		puts "Diagonal words from right to left in your grid: #{dr2l_words}"
+	end
+
+
+	def convert2diagonal(grid)
+		diagonal_grid = []
+		diagonal_line = ""
+		grid.length.times do |i|
+			line = grid[i].gsub(/\s+/, "")
+			diagonal_line = diagonal_line + line[i] + " "
+		end
+		diagonal_line.rstrip!
+		diagonal_grid << diagonal_line
 	end
 
 	def horizontal_l2r(grid)
