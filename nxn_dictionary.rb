@@ -14,9 +14,12 @@ class Nxn_Dictionary
 	def count(grid)
 		hl2r_words = 0
 		hr2l_words = 0
+		vl2r_words = 0
+		vr2l_words = 0
 		dl2r_words = 0
 		dr2l_words = 0
 		dict = load_dictionary
+		vertical_grid = convert2vertical(grid)
 		diagonal_grid = convert2diagonal(grid)
 		dict.each do |word|
 			grid.each do |line|
@@ -29,9 +32,19 @@ class Nxn_Dictionary
 					hr2l_words = hr2l_words + 1
 				end
 			end
+			vertical_grid.each do |line|
+				vl2r_line = line.gsub(/\s+/, "")				# Vertical line form left to right
+				vr2l_line = line.gsub(/\s+/, "").reverse		# The inverse vertical line, from right to left
+				if (vl2r_line.include? word)
+					vl2r_words = vl2r_words + 1
+				end
+				if (vr2l_line.include? word)
+					vr2l_words = vr2l_words + 1
+				end
+			end
 			diagonal_grid.each do |line|
-				dl2r_line = line.gsub(/\s+/, "")				# Horizontal line form left to right
-				dr2l_line = line.gsub(/\s+/, "").reverse		# The inverse horizontal line, from right to left
+				dl2r_line = line.gsub(/\s+/, "")				# Diagonal line form left to right
+				dr2l_line = line.gsub(/\s+/, "").reverse		# The inverse diagonal line, from right to left
 				if (dl2r_line.include? word)
 					dl2r_words = dl2r_words + 1
 				end
@@ -43,6 +56,8 @@ class Nxn_Dictionary
 		puts grid
 		puts "\nHorizontal words from left to right in your grid: #{hl2r_words}"
 		puts "Horizontal words from right to left in your grid: #{hr2l_words}"
+		puts "Vertical words from left to right in your grid: #{vl2r_words}"
+		puts "Vertical words from right to left in your grid: #{vr2l_words}"
 		puts "Diagonal words from left to right in your grid: #{dl2r_words}"
 		puts "Diagonal words from right to left in your grid: #{dr2l_words}"
 	end
