@@ -20,3 +20,13 @@ describe Nxn_Dictionary, "Find in dictionary" do
     nxn_dictionary.horizontal_l2r(grid).should eq(words) 				#Checks the output
   end
 end
+
+describe Nxn_Dictionary, "Find in dictionary" do
+  it "Horizontal words from rigth to left in your grid" do
+    nxn_dictionary = Nxn_Dictionary.new
+    dimension = (2..12).to_a.shuffle.first 							#Random dimension between 2 and 12
+    grid = nxn_dictionary.generate(dimension)
+    words = nxn_dictionary.horizontal_r2l(grid)
+    nxn_dictionary.horizontal_r2l(grid).should eq(words) 				#Checks the output
+  end
+end
